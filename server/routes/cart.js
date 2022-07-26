@@ -1,5 +1,6 @@
-const express = require("mongoose")
+const express = require("express")
 const router = express.Router()
+const mongoose = require("mongoose")
 const Item = mongoose.model("Item")
 const Cart = mongoose.model("Cart")
 
@@ -48,12 +49,12 @@ router.post("/addCartItem/:id", (req, res) => {
         cart.items.push({productId, quantity, price})
       }
       cart.bill += quantity*price;
-      cart = await cart.save();
+      cart = cart.save();
       return res.status(201).send(cart)
     }
     // if cart doesn't exists, create one
     else {
-      const newCart = await Cart.create({
+      const newCart = Cart.create({
         userId,
         items: [{ productId, quantity, price }],
         bill: quantity*price
@@ -73,14 +74,14 @@ router.delete("/deleteCartItem/:userid/:itemid", (req, res) => {
   const productId = req.params.itemid
 
   try{
-    let cart = await Cart.findOne({userId})
+    let cart = Cart.findOne({userId})
       let itemIndex = cart.items.findIndex(p => p.productId === productId)
       if(itemIndex > -1){
         let productItem = cart.items[itemIndex]
         cart.bill -= productItem.quantity*productItem.price
         cart.items.splice[itemIndex, 1]
       }
-      cart = await cart.save()
+      cart = cart.save()
       return res.status(201).send(cart)
     }
   catch(err){
@@ -88,3 +89,5 @@ router.delete("/deleteCartItem/:userid/:itemid", (req, res) => {
     res.status(500).send("Something Went Wrong")
   }
 })
+
+module.exports = router

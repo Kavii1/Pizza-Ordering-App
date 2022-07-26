@@ -6,8 +6,17 @@ const ingredient = new Schema({
     type: String,
     required: true
   },
+  quantity: {
+    type: Number,
+    default: 0,
+    required: true
+  },
   price: {
-    type: String,
+    type: Number,
+    required: true
+  },
+  total: {
+    type: Number,
     required: true
   }
 })

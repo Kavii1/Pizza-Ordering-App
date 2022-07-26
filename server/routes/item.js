@@ -1,5 +1,6 @@
 const express = require("express")
 const router = express.Router()
+const mongoose = require("mongoose")
 const Item = mongoose.model("Item")
 
 // Router to fetch all the items
