@@ -13,15 +13,13 @@ mongoose.connection.on("error", (err) => {
 })
 
 require("./models/user")
+require("./models/ingredients")
+require("./models/cart")
+require("./models/items")
+require("./models/orders")
 
 app.use(express.json())
 app.use(require("./routes/auth"))
-
-
-// const custommiddleware = (req, res, next) => {
-//   console.log("Custom Middleware");
-//   next()
-// }
 
 app.listen(PORT, ()=>{
   console.log(`Server is listening on port ${PORT}...`);
