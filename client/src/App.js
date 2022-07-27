@@ -1,3 +1,4 @@
+import { createContext } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Navbar from "./components/Navbar"
@@ -6,6 +7,8 @@ import Cart from "./components/screens/Cart"
 import Orders from "./components/screens/Orders"
 import Signin from "./components/screens/Signin"
 import Signup from "./components/screens/Signup"
+
+// const UserContext = createContext
 
 function App() {
   return (
