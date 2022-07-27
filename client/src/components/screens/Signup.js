@@ -1,33 +1,56 @@
 import React, { useState } from 'react'
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate()
 
   const PostData = (e) => {
     e.preventDefault()
     fetch("/signup", {
       method: "post",
       headers: {
-        "Content-type": "application/json"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        name: '',
-        email: '',
-        password: ''
+        name,
+        email,
+        password
       })
-    }).then(res => res.json)
+    }).then(res => res.json())
     .then(data => {
-      console.log(data);
-    })
+      if(data.error){
+        const notify = () => {
+          toast.error(data.error, {
+            autoClose: 2000,
+            theme: 'colored'
+          })
+        }
+        notify()
+      }
+      else{
+        const notify = () => {
+          toast.success(data.message, {
+            autoClose: 2000
+          })
+        }
+        notify()
+        setTimeout(() => {
+          navigate("/signin")
+        }, 2000);
+      }
+    }).catch(err =>  console.log(err))
   }
 
   return (
     <div className='signup-pizza-bg'>
       <div className="container">
       <div className="login-block">
+      <ToastContainer />
         <h2>Chit Chat</h2>
         <form action="" className="login-form common-form">
           <input type="text" placeholder='Name' autoComplete='false' value={name} onChange={(e)=>setName(e.target.value)} />
