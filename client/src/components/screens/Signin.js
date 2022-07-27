@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from "react-router-dom"
 import { Container } from "react-bootstrap"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { UserContext } from '../../App';
 
 const Signin = () => {
+  const {state, dispatch} = useContext(UserContext)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate()
@@ -43,6 +45,9 @@ const Signin = () => {
         notify()
       }
       else{
+        localStorage.setItem("jwt",data.token)
+        localStorage.setItem("user",JSON.stringify(data.user))
+        dispatch({type:"USER", payload: data.user})
         const notify = () => {
           toast.success(data.message, {
             autoClose: 2000
