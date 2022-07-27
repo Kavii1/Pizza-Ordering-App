@@ -1,7 +1,7 @@
-import { createContext, useContext, useEffect, useReducer } from 'react';
+import React, { createContext, useContext, useEffect, useReducer } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom"
-import Navbar from "./components/Navbar"
+import Nav from "./components/Nav"
 import Home from "./components/screens/Home"
 import Cart from "./components/screens/Cart"
 import Orders from "./components/screens/Orders"
@@ -40,7 +40,7 @@ function App() {
   return (
     <UserContext.Provider value={{state, dispatch}}>
       <BrowserRouter>
-      <Navbar />
+      <Nav />
       <Routing />
     </BrowserRouter>
     </UserContext.Provider>

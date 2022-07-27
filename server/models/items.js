@@ -10,8 +10,7 @@ const ItemSchema = new Schema({
     required: true
   },
   size: {
-    type: String,
-    required: true
+    type: String
   },
   ingredients: {
     type: ObjectId,

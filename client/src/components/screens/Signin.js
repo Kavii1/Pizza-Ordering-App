@@ -12,7 +12,6 @@ const Signin = () => {
   const navigate = useNavigate()
 
   const PostData = (e) => {
-    console.log(`email: ${email} password: ${password}`);
     e.preventDefault()
     // if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) {
     //   const notify = () => {
@@ -45,18 +44,19 @@ const Signin = () => {
         notify()
       }
       else{
-        localStorage.setItem("jwt",data.token)
-        localStorage.setItem("user",JSON.stringify(data.user))
-        dispatch({type:"USER", payload: data.user})
         const notify = () => {
-          toast.success(data.message, {
-            autoClose: 2000
+          toast.success("Successfully Signed In", {
+            autoClose: 1000,
+            theme: 'colored'
           })
         }
         notify()
+        localStorage.setItem("jwt",data.token)
+        localStorage.setItem("user",JSON.stringify(data.user))
+        dispatch({type:"USER", payload: data.user})
         setTimeout(() => {
           navigate("/")
-        }, 2000);
+        }, 1200);
       }
     }).catch(err =>  console.log(err))
   }

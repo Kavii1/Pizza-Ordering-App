@@ -22,7 +22,7 @@ app.use(express.json())
 app.use(require("./routes/auth"))
 app.use(require("./routes/cart"))
 app.use(require("./routes/ingredient"))
-// app.use(require("./routes/item"))
+app.use(require("./routes/item"))
 // app.use(require("./routes/order"))
 
 app.listen(PORT, ()=>{

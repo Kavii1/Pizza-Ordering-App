@@ -2,18 +2,23 @@ const express = require("express")
 const router = express.Router()
 const mongoose = require("mongoose")
 const Item = mongoose.model("Item")
+const auth = require("../middleware/auth")
 
 // Router to fetch all the items
-router.get("/getItems", (req, res) => {
-  Item.find().sort({date: -1}) //Get all the items and sort them in decreasing order by date added
+router.get("/allPizzas",auth , (req, res) => {
+  Item.find()
+  .sort("-size")
+  .sort("-ingredients")
+  .sort("-dateAdded")
   .then(items => res.json(items))
 })
 
 // Router to add a new item to DB
-router.post("/postItems", (req, res) => {
+router.post("/postPizzas", (req, res) => {
   const newItem = new Item(req.body);
   newItem.save()
   .then(item => res.json(item))
+  .catch(err => console.log(err))
 })
 
 // Router to apdate an item in DB
